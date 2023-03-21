@@ -7,7 +7,7 @@
                 <input v-model="searchInput" class="form-control" id="ex24" type="text" placeholder="Enter crypto name">
             </div>
         </form>
-        <div class="m-3" v-if="!laravelData.data.length">
+        <div class="m-3" v-if="!tableData.data.length">
             <div class="alert alert-danger" >
                 Table "crypto" es empty or has no data. Please, execute "<span class="fw-bold">php artisan crypto:get-data</span>" command to fill table with data.
             </div>
@@ -28,7 +28,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="post in laravelData.data" :key="post.id">
+            <tr v-for="post in cryptoData.data" :key="post.id">
                 <td>{{ post.id }}</td>
                 <td><img style="width: 32px" :src="`/storage/logos/${post.crypto_id}.png`" loading="lazy" :alt="`${post.symbol} logo`"></td>
                 <td>{{ post.name }} <span class="fw-light">{{ post.symbol }}</span></td>
@@ -49,7 +49,7 @@
         </table>
         <div>
             <TailwindPagination
-                :data="laravelData"
+                :data="cryptoData"
                 @pagination-change-page="getResults"
             />
         </div>
@@ -57,21 +57,29 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch  } from 'vue';
+import { ref, watch  } from 'vue';
 import { TailwindPagination } from 'laravel-vue-pagination';
 
 const green = 'filter: hue-rotate(85deg) saturate(80%) brightness(0.85)';
 const red = 'filter: hue-rotate(300deg) saturate(210%) brightness(0.7) contrast(170%)';
 const searchInput = ref('');
-const laravelData = ref({});
+const cryptoData = ref({});
+const tableData = ref({});
 
-watch(searchInput, (current, previous) => {
+watch(searchInput, (current) => {
     getResults(1, current)
 })
 const getResults = async (page = 1, searchInput = '') => {
     const response = await fetch(`/api/get?page=` + page + '&search_title=' + searchInput);
-    laravelData.value = await response.json();
+    cryptoData.value = await response.json();
 }
 
+const isTableEmpty = async () => {
+    const response = await fetch(`/api/get`);
+    tableData.value = await response.json();
+}
+
+getResults();
+isTableEmpty();
 getResults();
 </script>

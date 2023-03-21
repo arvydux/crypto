@@ -13,7 +13,7 @@ class CryptoController extends Controller
     {
         $test = request('search_title');
         $cryptos = Crypto::when($test, function ($query, $test) {
-            $query->where('name', "like", "%$test%");
+            $query->where('name', 'like', "%$test%");
         })->paginate(100);
 
         return CryptoResource::collection($cryptos);

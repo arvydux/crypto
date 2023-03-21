@@ -20,9 +20,9 @@ return new class extends Migration
             $table->decimal('percent_change_1h', 8, 2);
             $table->decimal('percent_change_24h', 8, 2);
             $table->decimal('percent_change_7d', 8, 2);
-            $table->double('market_cap', 12 );
-            $table->double('volume_24h', 12 );
-            $table->double('circulating_supply', 12 );
+            $table->double('market_cap', 12);
+            $table->double('volume_24h', 12);
+            $table->double('circulating_supply', 12);
             $table->timestamps();
         });
     }

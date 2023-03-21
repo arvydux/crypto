@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\CryptoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,11 +16,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/get', [CryptoController::class, 'index']);
-
-Route::get('/get2', [CryptoController::class, 'index2']);
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -25,7 +25,6 @@ class GetCryptoData extends Command
     /**
      * Execute the console command.
      */
-
     public function __construct(private readonly CryptoService $userService)
     {
         parent::__construct();
@@ -39,7 +38,7 @@ class GetCryptoData extends Command
         $validator = Validator::make([
             'quantity' => $quantity,
         ], [
-            'quantity' => ['integer', 'min:100', 'max:1000']
+            'quantity' => ['integer', 'min:100', 'max:1000'],
         ]);
 
         if ($validator->fails()) {
