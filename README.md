@@ -1,5 +1,7 @@
 # Laravel Crypto App
 
+![alt text](crypto_laravel.png)
+
 ----------
 
 # Getting started
