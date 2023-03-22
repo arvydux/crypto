@@ -14,6 +14,11 @@ class CryptoResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        $trasnformetd_to_monet_format = [
+            'market_cap'         => '$' . number_format($this->market_cap),
+            'volume_24h'         => '$' . number_format($this->volume_24h),
+            'circulating_supply' => number_format($this->circulating_supply) . ' '. $this->symbol,
+        ];
+        return array_merge(parent::toArray($request), $trasnformetd_to_monet_format) ;
     }
 }
